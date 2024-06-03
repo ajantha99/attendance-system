@@ -2,6 +2,7 @@ package com.task.backend.Server.controllers;
 
 import com.task.backend.Server.Entity.User;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 public class UserController {
 
     private Map<String, String> users = new HashMap<>();
@@ -43,6 +45,7 @@ public class UserController {
             String token = generateToken(username);
             Map<String, String> response = new HashMap<>();
             response.put("token", token);
+            response.put("username",username);
             return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
